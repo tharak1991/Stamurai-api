@@ -10,5 +10,6 @@ router.post('/add', word_cntrl.addWord);
 
 router.get('/get2', word_cntrl.getCashback2);
 router.get('/get3', word_cntrl.getCashback3);
+router.get('/get4', word_cntrl.getCashback4);
 
 module.exports = router ;

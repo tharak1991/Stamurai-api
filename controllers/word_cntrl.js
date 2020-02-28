@@ -75,19 +75,13 @@ module.exports = {
 
         try {
 
-            searchArray = ['A','B','C']
+            // regex = '^(part1|part2|part1,part2)$'
+            search = ['Z', 'X', 'B']
 
             var query = {start : 'A'}
 
-            Word.find( { start: { $in: [searchArray] }, $where: function() {
-                var numMatches = 0;
-                for (var i = 1; i <= searchArray.length; i++)
-                    if (this.start.indexOf(i) > -1) numMatches++;
-                return numMatches >= 3;
-            } } );
-
         if (true) {
-            Word.find(query, function (err, cashback) {
+            Word.find( { start: { $regex: '' + search[0] + '.*' + '|' + search[1] + '.*'  } } , function (err, cashback) {
                 if (err) throw err;
                 if (!cashback) res.status(200).send({
                     success: false,
@@ -98,7 +92,7 @@ module.exports = {
                         success: true,
                         message: cashback
                     });
-            }).limit(100).select({
+            }).limit(400).select({
                 "_meta": 0,
                 "_id": 0,
                 "__v": 0
