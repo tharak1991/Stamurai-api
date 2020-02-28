@@ -70,6 +70,50 @@ module.exports = {
       }
     },
 
+    
+    getCashback4: async function (req, res) {
+
+        try {
+
+            searchArray = ['A','B','C']
+
+            var query = {start : 'A'}
+
+            Word.find( { start: { $in: [searchArray] }, $where: function() {
+                var numMatches = 0;
+                for (var i = 1; i <= searchArray.length; i++)
+                    if (this.start.indexOf(i) > -1) numMatches++;
+                return numMatches >= 3;
+            } } );
+
+        if (true) {
+            Word.find(query, function (err, cashback) {
+                if (err) throw err;
+                if (!cashback) res.status(200).send({
+                    success: false,
+                    message: '12'
+                });
+                else
+                    res.status(200).send({
+                        success: true,
+                        message: cashback
+                    });
+            }).limit(100).select({
+                "_meta": 0,
+                "_id": 0,
+                "__v": 0
+            });
+        } else {
+            res.status(401).send({
+                sucess: false,
+                message: "Token Invalid"
+            });
+        }
+    }catch (err) {
+        next(err);
+      }
+    },
+
     addWord: function (req, res) {
 
         var newWord = new Word({
@@ -83,6 +127,8 @@ module.exports = {
                 res.status(400).send("unable to save to database");
             });
     },
+
+
 
     getCashback2: async function (req, res) {
 
