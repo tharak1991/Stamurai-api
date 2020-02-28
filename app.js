@@ -34,11 +34,11 @@ const upload = multer({
 
 var config = require('./config/database');
 var indexRouter = require('./routes/index');
-var merchantRouter = require('./routes/merchant')
-var storeRouter = require('./routes/stores')
-var quidRouter = require('./routes/quid')
 
-var sympillRouter = require('./routes/sympill');
+
+
+
+
 var stamuraiRouter = require('./routes/stamurai');
 
 var app = express();
@@ -80,10 +80,6 @@ var corsOptions = {
     }
 
         app.use('/', indexRouter);
-        app.use('/merchant', cors(corsOptions), merchantRouter);
-        app.use('/store', cors(corsOptions), storeRouter);
-        app.use('/quid', cors(corsOptions), quidRouter);
-        app.use('/sympill', sympillRouter);
         app.use('/stamurai', stamuraiRouter);
 
         app.use(passport.initialize());
